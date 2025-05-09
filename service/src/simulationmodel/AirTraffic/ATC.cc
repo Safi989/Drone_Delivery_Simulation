@@ -23,7 +23,7 @@ void ATC::unregisterEntity(IEntity* e) {
 }
 
 
-void ATC::enforceSeparation() {
+void ATC::seperate() {
     const double minDist = 50.0;
 
     for (size_t i = 0; i < flyingEntities.size(); i++) {
@@ -45,7 +45,7 @@ void ATC::enforceSeparation() {
                 norm.y = dy / dist;
                 norm.z = dz / dist;
 
-                double push = in * 0.5;
+                double push = in * 2.0;
                 Vector3 offset{norm.x * push, norm.y * push, norm.z * push};
 
                 Vector3 newA{a.x + offset.x, a.y + offset.y, a.z + offset.z};
@@ -64,5 +64,5 @@ void ATC::update(double dt) {
     for (std::size_t i = 0; i < flyingEntities.size(); i++) {
         flyingEntities[i]->update(dt);
     }
-    enforceSeparation();
+    seperate();
 }

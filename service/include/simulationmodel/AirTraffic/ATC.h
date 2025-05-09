@@ -32,7 +32,7 @@ class ATC {
         /**
          * @brief makes sure the flying entities are not colliding
         */
-        void enforceSeparation();
+        void seperate();
 
         /**
          * @brief moves the simulation forward by a time step
