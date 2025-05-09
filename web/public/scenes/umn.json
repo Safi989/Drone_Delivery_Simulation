@@ -68,13 +68,209 @@
     "command": "CreateEntity",
     "params": {
       "type": "helicopter",
-      "name": "Helicopter",
+      "name": "Helicopter 1",
       "mesh": "assets/model/helicopter.glb",
-      "position": [498.292, 550, -228.623],
+      "position": [-1400, 550, 0],
       "scale": [0.025, 0.025, 0.025],
       "rotation": [0, 0, 0, 0],
       "direction": [1, 0, 0],
       "speed": 50.0,
+      "offset": [0, 1.5, 0]
+    }
+  },
+  {
+    "command": "CreateEntity",
+    "params": {
+      "type": "helicopter",
+      "name": "Helicopter 2",
+      "mesh": "assets/model/helicopter.glb",
+      "position": [1400, 550, 0],
+      "scale": [0.025, 0.025, 0.025],
+      "rotation": [0, 0, 0, 0],
+      "direction": [1, 0, 0],
+      "speed": 50.0,
+      "offset": [0, 1.5, 0]
+    }
+  },
+  {
+    "command": "CreateEntity",
+    "params": {
+      "type": "helicopter",
+      "name": "Helicopter 3",
+      "mesh": "assets/model/helicopter.glb",
+      "position": [0, 550, 800],
+      "scale": [0.025, 0.025, 0.025],
+      "rotation": [0, 0, 0, 0],
+      "direction": [1, 0, 0],
+      "speed": 50.0,
+      "offset": [0, 1.5, 0]
+    }
+  },
+  {
+    "command": "CreateEntity",
+    "params": {
+      "type": "helicopter",
+      "name": "Helicopter 4",
+      "mesh": "assets/model/helicopter.glb",
+      "position": [0, 550, -800],
+      "scale": [0.025, 0.025, 0.025],
+      "rotation": [0, 0, 0, 0],
+      "direction": [1, 0, 0],
+      "speed": 50.0,
+      "offset": [0, 1.5, 0]
+    }
+  },
+  {
+    "command": "CreateEntity",
+    "params": {
+      "type": "helicopter",
+      "name": "Helicopter 5",
+      "mesh": "assets/model/helicopter.glb",
+      "position": [1400, 550, -800],
+      "scale": [0.025, 0.025, 0.025],
+      "rotation": [0, 0, 0, 0],
+      "direction": [1, 0, 0],
+      "speed": 50.0,
+      "offset": [0, 1.5, 0]
+    }
+  },
+  {
+    "command": "CreateEntity",
+    "params": {
+      "type": "airplane",
+      "name": "Airplane 1",
+      "mesh": "assets/model/airplane.glb",
+      "position": [498.292, 700, -228.623],
+      "scale": [0.025, 0.025, 0.025],
+      "rotation": [0, 0, 0, 0],
+      "direction": [1, 0, 0],
+      "speed": 75.0,
+      "offset": [0, 1.5, 0]
+    }
+  },
+  {
+    "command": "CreateEntity",
+    "params": {
+      "type": "airplane",
+      "name": "Airplane 2",
+      "mesh": "assets/model/airplane.glb",
+      "position": [498.292, 700, -228.623],
+      "scale": [0.025, 0.025, 0.025],
+      "rotation": [0, 0, 0, 0],
+      "direction": [1, 0, 0],
+      "speed": 75.0,
+      "offset": [0, 1.5, 0]
+    }
+  },
+  {
+    "command": "CreateEntity",
+    "params": {
+      "type": "airplane",
+      "name": "Airplane 3",
+      "mesh": "assets/model/airplane.glb",
+      "position": [498.292, 700, -228.623],
+      "scale": [0.025, 0.025, 0.025],
+      "rotation": [0, 0, 0, 0],
+      "direction": [1, 0, 0],
+      "speed": 75.0,
+      "offset": [0, 1.5, 0]
+    }
+  },
+  {
+    "command": "CreateEntity",
+    "params": {
+      "type": "airplane",
+      "name": "Airplane 4",
+      "mesh": "assets/model/airplane.glb",
+      "position": [498.292, 700, -228.623],
+      "scale": [0.025, 0.025, 0.025],
+      "rotation": [0, 0, 0, 0],
+      "direction": [1, 0, 0],
+      "speed": 75.0,
+      "offset": [0, 1.5, 0]
+    }
+  },
+  {
+    "command": "CreateEntity",
+    "params": {
+      "type": "airplane",
+      "name": "Airplane 5",
+      "mesh": "assets/model/airplane.glb",
+      "position": [498.292, 700, -228.623],
+      "scale": [0.025, 0.025, 0.025],
+      "rotation": [0, 0, 0, 0],
+      "direction": [1, 0, 0],
+      "speed": 75.0,
+      "offset": [0, 1.5, 0]
+    }
+  },
+  {
+    "command": "CreateEntity",
+    "params": {
+      "type": "airplane",
+      "name": "Airplane 6",
+      "mesh": "assets/model/airplane.glb",
+      "position": [498.292, 700, -228.623],
+      "scale": [0.025, 0.025, 0.025],
+      "rotation": [0, 0, 0, 0],
+      "direction": [1, 0, 0],
+      "speed": 75.0,
+      "offset": [0, 1.5, 0]
+    }
+  },
+  {
+    "command": "CreateEntity",
+    "params": {
+      "type": "airplane",
+      "name": "Airplane 7",
+      "mesh": "assets/model/airplane.glb",
+      "position": [498.292, 700, -228.623],
+      "scale": [0.025, 0.025, 0.025],
+      "rotation": [0, 0, 0, 0],
+      "direction": [1, 0, 0],
+      "speed": 75.0,
+      "offset": [0, 1.5, 0]
+    }
+  },
+  {
+    "command": "CreateEntity",
+    "params": {
+      "type": "airplane",
+      "name": "Airplane 8",
+      "mesh": "assets/model/airplane.glb",
+      "position": [498.292, 700, -228.623],
+      "scale": [0.025, 0.025, 0.025],
+      "rotation": [0, 0, 0, 0],
+      "direction": [1, 0, 0],
+      "speed": 75.0,
+      "offset": [0, 1.5, 0]
+    }
+  },
+  {
+    "command": "CreateEntity",
+    "params": {
+      "type": "airplane",
+      "name": "Airplane 9",
+      "mesh": "assets/model/airplane.glb",
+      "position": [498.292, 700, -228.623],
+      "scale": [0.025, 0.025, 0.025],
+      "rotation": [0, 0, 0, 0],
+      "direction": [1, 0, 0],
+      "speed": 75.0,
+      "offset": [0, 1.5, 0]
+    }
+  },
+  {
+    "command": "CreateEntity",
+    "params": {
+      "type": "airplane",
+      "name": "Airplane 10",
+      "mesh": "assets/model/airplane.glb",
+      "position": [498.292, 700, -228.623],
+      "scale": [0.025, 0.025, 0.025],
+      "rotation": [0, 0, 0, 0],
+      "direction": [1, 0, 0],
+      "speed": 75.0,
       "offset": [0, 1.5, 0]
     }
   }

@@ -5,6 +5,8 @@
 #include "HumanFactory.h"
 #include "PackageFactory.h"
 #include "RobotFactory.h"
+#include "AirplaneFactory.h"
+#include "ATC.h"
 
 SimulationModel::SimulationModel(IController& controller)
     : controller(controller) {
@@ -13,6 +15,8 @@ SimulationModel::SimulationModel(IController& controller)
   entityFactory.addFactory(new RobotFactory());
   entityFactory.addFactory(new HumanFactory());
   entityFactory.addFactory(new HelicopterFactory());
+  entityFactory.addFactory(new AirplaneFactory());
+
 }
 
 SimulationModel::~SimulationModel() {
@@ -92,17 +96,20 @@ void SimulationModel::setGraph(const routing::Graph* graph) {
   this->graph = graph;
 }
 
-/// Updates the simulation
+// Updates the simulation
 void SimulationModel::update(double dt) {
   for (auto& [id, entity] : entities) {
     entity->update(dt);
     controller.updateEntity(*entity);
   }
+  ATC::getInstance().update(dt);
+  
   for (int id : removed) {
     removeFromSim(id);
   }
   removed.clear();
 }
+
 
 void SimulationModel::stop(void) {}
 
