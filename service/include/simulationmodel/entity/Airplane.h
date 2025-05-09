@@ -14,6 +14,10 @@ class Airplane : public IEntity {
 
   ~Airplane();
 
+  /**
+   * @brief Updates the drone's position
+   * @param dt Delta time
+   */
   void update(double dt);
 
 
