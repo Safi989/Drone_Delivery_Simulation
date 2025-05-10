@@ -35,13 +35,40 @@
                 <option value="dijkstra">Dijkstra</option>
               </select>
             </div>
+            <div>Shipping Priority:
+              <select id="shipping-priority">
+                <option value="Standard">Standard</option>
+                <option value="NoRush">No Rush</option>
+                <option value="Expedited">Expedited</option>
+              </select>
+            </div>
             <br><button id="schedule-submit">Submit</button>
             <button id="schedule-cancel">Cancel</button><br>
             <div id="schedule-error"></div>
           </div>
           <div>
             <button type="button" id="add-human">Add Human</button><br>
-            <button type="button" id="add-drone">Add Drone</button><br>
+            <button type="button" id="change-priority">Manage Priorities</button>
+            <div id="change-priority-input" hidden="true">
+              <div>Package Name: <input id="change-priority-name" type="Text" autocomplete="off"></div>
+              <div>New Priority:
+                <select id="change-priority-value">
+                  <option value="Standard">Standard</option>
+                  <option value="NoRush">No Rush</option>
+                  <option value="Expedited">Expedited</option>
+                </select>
+              </div>
+              <div id="priority-queue-info">
+                <h4>Current Queue (Priority Order):</h4>
+                <ul id="priority-queue-list">
+                  <!-- Package list will be populated here -->
+                </ul>
+              </div>
+              <br><button id="change-priority-submit">Update Priority</button>
+              <button id="refresh-packages">Refresh List</button>
+              <button id="change-priority-cancel">Close</button><br>
+              <div id="change-priority-error"></div>
+            </div>
             <button type="button" id="stop-simulation">Stop Simulation</button>
           </div>
         </div>

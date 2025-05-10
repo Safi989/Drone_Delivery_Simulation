@@ -7,6 +7,8 @@
 #include "math/vector3.h"
 #include "util/json.h"
 
+#include "PriorityShippingState.h"
+
 class Robot;
 
 class Package : public IEntity {
@@ -70,11 +72,54 @@ class Package : public IEntity {
    */
   virtual void handOff();
 
+
+  /**
+   * @brief Sets the shipping priority state (Expedited, Standard, No Rush)
+   */
+  void setPriority(PriorityShippingState* newState);
+
+  /**
+   * @brief Gets the name of the priority state
+   * @return "Expedited", "Standard", or "No Rush"
+   */
+  std::string getPriorityName() const;
+
+  /**
+   * @brief Gets the int value used for sorting queues
+   */
+  int GetPriorityLevel() const;
+
+  /**
+   * @brief Locks the state after pickup
+   */
+  void markPickedUp();
+
+  /**
+   * @brief Marks the package as delivered
+   */
+  void markDelivered();
+
+  /**
+   * @brief Checks if the package has been picked up
+   */
+  bool isPickedUp() const;
+
+  /**
+   * @brief Checks if the package has been delivered
+   */
+  bool isDelivered() const;
+
+
+
  protected:
   bool requiresDelivery_ = true;
   Vector3 destination;
   std::string strategyName;
   Robot* owner = nullptr;
+
+  PriorityShippingState* priorityState = nullptr;
+  bool pickedUp = false;
+  bool delivered = false;
 };
 
-#endif  // PACKAGE_H
+#endif

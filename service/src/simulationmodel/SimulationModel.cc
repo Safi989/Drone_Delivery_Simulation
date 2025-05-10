@@ -5,11 +5,15 @@
 #include "HumanFactory.h"
 #include "PackageFactory.h"
 #include "RobotFactory.h"
+#include "ShippingQueue.h"
+#include "ShippingStateFactory.h"
 
 SimulationModel::SimulationModel(IController& controller)
     : controller(controller) {
+  shippingQueue = new ShippingQueue();  
+
   entityFactory.addFactory(new DroneFactory());
-  entityFactory.addFactory(new PackageFactory());
+  entityFactory.addFactory(new PackageFactory(shippingQueue));
   entityFactory.addFactory(new RobotFactory());
   entityFactory.addFactory(new HumanFactory());
   entityFactory.addFactory(new HelicopterFactory());
@@ -21,6 +25,7 @@ SimulationModel::~SimulationModel() {
     delete entity;
   }
   delete graph;
+  delete shippingQueue;
 }
 
 IEntity* SimulationModel::createEntity(const JsonObject& entity) {
@@ -80,9 +85,22 @@ void SimulationModel::scheduleTrip(const JsonObject& details) {
     package->initDelivery(receiver);
     std::string strategyName = details["search"];
     package->setStrategyName(strategyName);
-    scheduledDeliveries.push_back(package);
+    // scheduledDeliveries.push_back(package);
     controller.sendEventToView("DeliveryScheduled", details);
   }
+
+  if (details.contains("priority")) {
+      std::string priority = static_cast<std::string>(details["priority"]);
+      package->setPriority(ShippingStateFactory::CreatePriority(priority));
+      shippingQueue->UpdatePackagePriority(package);
+    }
+
+  controller.sendEventToView("DeliveryScheduled", details);
+}
+
+Package* SimulationModel::getNextPackageFromQueue() {
+    Package* next = shippingQueue->GetNextPackage();
+    return next;
 }
 
 const routing::Graph* SimulationModel::getGraph() const { return graph; }
@@ -104,18 +122,43 @@ void SimulationModel::update(double dt) {
   removed.clear();
 }
 
+
+bool SimulationModel::changePackagePriority(const std::string& packageName, const std::string& newPriority) {
+    Package* package = nullptr;
+
+    for (auto& [id, entity] : entities) {
+        if (entity->getName() == packageName + "_package") {
+            package = dynamic_cast<Package*>(entity);
+            break;
+        }
+    }
+
+    if (!package || package->isPickedUp() || package->isDelivered()) {
+        return false;
+    }
+
+    package->setPriority(ShippingStateFactory::CreatePriority(newPriority));
+    shippingQueue->UpdatePackagePriority(package);
+
+    notify("Package " + packageName + " priority changed to " + newPriority);
+    return true;
+}
+
+
+
+
 void SimulationModel::stop(void) {}
 
 void SimulationModel::removeFromSim(int id) {
   IEntity* entity = entities[id];
   if (entity) {
-    for (auto i = scheduledDeliveries.begin(); i != scheduledDeliveries.end();
-         ++i) {
-      if (*i == entity) {
-        scheduledDeliveries.erase(i);
-        break;
-      }
-    }
+    // for (auto i = scheduledDeliveries.begin(); i != scheduledDeliveries.end();
+    //      ++i) {
+    //   if (*i == entity) {
+    //     scheduledDeliveries.erase(i);
+    //     break;
+    //   }
+    // }
     controller.removeEntity(*entity);
     entities.erase(id);
     delete entity;
@@ -127,3 +170,12 @@ void SimulationModel::notify(const std::string& message) const {
   details["message"] = message;
   this->controller.sendEventToView("Notification", details);
 }
+
+JsonObject SimulationModel::getDeliveryQueueInfo() const {
+  return JsonObject();
+
+}
+
+void SimulationModel::addDrones(int count) {
+}
+

@@ -2,6 +2,10 @@
 
 #include "Robot.h"
 
+#include "Expedited.h"
+#include "Standard.h"
+#include "NoRush.h"
+
 Package::Package(const JsonObject& obj) : IEntity(obj) {}
 
 Vector3 Package::getDestination() const { return destination; }
@@ -29,4 +33,46 @@ void Package::handOff() {
   if (owner) {
     owner->receive(this);
   }
+}
+
+void Package::setPriority(PriorityShippingState* newState) {
+  if (!pickedUp && !delivered) {
+    this->priorityState = newState;
+
+    notifyObservers("Package " + getName() + " priority changed to " + newState->GetName());
+  }
+}
+
+std::string Package::getPriorityName() const {
+  if (priorityState) {
+    return priorityState->GetName();
+  } else {
+      return "not assigned";
+  }
+}
+
+int Package::GetPriorityLevel() const {
+  if (priorityState) {
+    return priorityState->GetPriorityLevel();
+  } else {
+      return 4;
+  }
+}
+
+void Package::markPickedUp() {
+  pickedUp = true;
+  notifyObservers("Package picked up");
+}
+
+void Package::markDelivered() {
+  delivered = true;
+  notifyObservers("Package delivered");
+}
+
+bool Package::isPickedUp() const {
+  return pickedUp;
+}
+
+bool Package::isDelivered() const {
+  return delivered;
 }
