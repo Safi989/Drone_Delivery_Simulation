@@ -20,38 +20,34 @@ Drone::~Drone() {
 }
 
 void Drone::getNextDelivery() {
-  if (model && model->scheduledDeliveries.size() > 0) {
-    package = model->scheduledDeliveries.front();
-    model->scheduledDeliveries.pop_front();
+if (model) {
+  package = model->getNextPackageFromQueue();
 
     if (package) {
-      std::string message = getName() + " heading to: " + package->getName();
-      notifyObservers(message);
-      available = false;
-      pickedUp = false;
+        package->markPickedUp();
 
-      Vector3 packagePosition = package->getPosition();
-      Vector3 finalDestination = package->getDestination();
+        std::string message = getName() + " heading to: " + package->getName();
+        notifyObservers(message);
+        available = false;
+        pickedUp = false;
 
-      toPackage = new BeelineStrategy(position, packagePosition);
+        Vector3 packagePosition = package->getPosition();
+        Vector3 finalDestination = package->getDestination();
 
-      std::string strat = package->getStrategyName();
-      if (strat == "astar") {
-        toFinalDestination = new AstarStrategy(
-            packagePosition, finalDestination, model->getGraph());
-      } else if (strat == "dfs") {
-        toFinalDestination = new DfsStrategy(packagePosition, finalDestination,
-                                             model->getGraph());
-      } else if (strat == "bfs") {
-        toFinalDestination = new BfsStrategy(packagePosition, finalDestination,
-                                             model->getGraph());
-      } else if (strat == "dijkstra") {
-        toFinalDestination = new DijkstraStrategy(
-            packagePosition, finalDestination, model->getGraph());
-      } else {
-        toFinalDestination =
-            new BeelineStrategy(packagePosition, finalDestination);
-      }
+        toPackage = new BeelineStrategy(position, packagePosition);
+
+        std::string strat = package->getStrategyName();
+        if (strat == "astar") {
+            toFinalDestination = new AstarStrategy(packagePosition, finalDestination, model->getGraph());
+        } else if (strat == "dfs") {
+            toFinalDestination = new DfsStrategy(packagePosition, finalDestination, model->getGraph());
+        } else if (strat == "bfs") {
+            toFinalDestination = new BfsStrategy(packagePosition, finalDestination, model->getGraph());
+        } else if (strat == "dijkstra") {
+            toFinalDestination = new DijkstraStrategy(packagePosition, finalDestination, model->getGraph());
+        } else {
+            toFinalDestination = new BeelineStrategy(packagePosition, finalDestination);
+        }
     }
   }
 }
