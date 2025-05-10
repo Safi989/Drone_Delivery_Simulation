@@ -6,11 +6,21 @@
 #include "IEntityFactory.h"
 #include "Package.h"
 
+#include "Expedited.h"
+#include "Standard.h"
+#include "NoRush.h"
+#include "ShippingQueue.h"
+
+class ShippingQueue;
+
 /**
  *@brief Package Factory to produce Package class.
  **/
 class PackageFactory : public IEntityFactory {
  public:
+
+  PackageFactory(ShippingQueue* queue) : shippingQueue(queue) {}
+
   /**
    * @brief Destructor for PackageFactory class.
    **/
@@ -23,6 +33,9 @@ class PackageFactory : public IEntityFactory {
    *nullpointer if creation failed.
    **/
   IEntity* createEntity(const JsonObject& entity);
+
+  private:
+    ShippingQueue* shippingQueue;
 };
 
 #endif

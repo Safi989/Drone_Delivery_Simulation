@@ -12,6 +12,7 @@
 #include "IEntity.h"
 #include "IObserver.h"
 #include "Robot.h"
+#include "ShippingQueue.h"
 
 //--------------------  Model ----------------------------
 
@@ -79,9 +80,39 @@ class SimulationModel : public IObserver {
    */
   const routing::Graph* getGraph() const;
 
+  /**
+   * @brief Gets the next package based on priority.
+   * @return The next package.
+   */
+  Package* getNextPackageFromQueue();
+
+   /**
+   * @brief Sends a message to the view.
+   * @param message Notification text.
+   */
   void notify(const std::string& message) const;
 
-  std::deque<Package*> scheduledDeliveries;
+  // std::deque<Package*> scheduledDeliveries;
+
+  /**
+   * @brief Changes a package’s priority.
+   * @param packageName The package's name.
+   * @param newPriority New priority value.
+   * @return True if successful.
+   */
+  bool changePackagePriority(const std::string& packageName, const std::string& newPriority);
+  /**
+   * @brief Gets current queue info as JSON.
+   * @return Delivery queue info.
+   */
+  JsonObject getDeliveryQueueInfo() const;
+
+  /**
+   * @brief Adds new drones.
+   * @param count Number of drones to add.
+   */
+  void addDrones(int count);
+
 
  protected:
   IController& controller;
@@ -90,6 +121,7 @@ class SimulationModel : public IObserver {
   void removeFromSim(int id);
   const routing::Graph* graph = nullptr;
   CompositeFactory entityFactory;
+  ShippingQueue* shippingQueue;
 };
 
 #endif
